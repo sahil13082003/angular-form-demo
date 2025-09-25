@@ -1,0 +1,51 @@
+<p>form works!</p>
+
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <label for="name">Name</label>
+  <input type="text" id="name" formControlName="name">
+
+  @if (userForm.get('name')?.invalid && userForm.get('name')?.touched) {
+    <div class="error">Name is Required</div>
+  }
+
+  <label for="email">Email</label>
+  <input type="email" id="email" formControlName="email">
+
+  @if (userForm.get('email')?.invalid && userForm.get('email')?.touched) {
+    <div class="error">Enter a valid Email</div>
+  }
+
+  <label for="password">Password</label>
+<input type="password" id="password" formControlName="password">
+
+@if (userForm.get('password')?.invalid && userForm.get('password')?.touched) {
+  
+  @if (userForm.get('password')?.errors?.['required']) {
+    <div class="error">Password is Required</div>
+  }
+  @else if (userForm.get('password')?.errors?.['minlength']) {
+    <div class="error">Password should be minimum 6 characters</div>
+  }
+  @else if (userForm.get('password')?.errors?.['pattern']) {
+    <div class="error">Password should contain at least one letter and one number</div>
+  }
+
+}
+
+<label for="gender">Gender</label>
+<input type="radio" id="male" value="male" formControlName="gender">
+<label for="male">Male</label>
+<input type="radio" id="female" value="female" formControlName="gender">
+<label for="female">Female</label>
+
+@if (userForm.get('gender')?.invalid && userForm.get('gender')?.touched) {
+  <div class="error">Gender is Required</div>
+}
+
+<input type="checkbox" id="terms" formControlName="terms">
+<label for="terms">Accept Terms and Conditions</label>
+
+
+
+  <button type="submit">Submit</button>
+</form>
